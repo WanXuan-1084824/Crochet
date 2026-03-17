@@ -29,5 +29,9 @@ def registreren():
             return redirect(url_for('startscherm'))
     return render_template('registreren.html')
 
+@app.route('/login', methods=['GET', 'POST'])
+def inloggen():
+    return render_template('inloggen.html')
+
 if __name__ == '__main__':
     app.run(debug=True)
