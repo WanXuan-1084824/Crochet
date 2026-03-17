@@ -8,6 +8,7 @@
     <title>Registreren</title>
 </head>
 <body>
+<form method="POST" action="{{ url_for('registreren') }}">
 
 <!-- telefoon scherm -->
 <div class="phone">
@@ -21,23 +22,23 @@
         <!-- email -->
         <div class="input-field">
             <label>Email</label>
-            <input type="email" placeholder="email">
+            <input name="email" type="email" placeholder="email" required>
         </div>
 
         <!-- password -->
         <div class="input-field">
             <label>Password</label>
-            <input type="password" placeholder="wachtwoord">
+            <input name="password" type="password" placeholder="wachtwoord" required>
         </div>
 
         <!-- knop -->
-        <button class="register-btn">
+        <button name="submit" type="submit" class="register-btn">
             REGISTER
         </button>
 
     </div>
 
 </div>
-
+</form>
 </body>
 </html>
