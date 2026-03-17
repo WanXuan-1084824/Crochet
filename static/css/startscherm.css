@@ -1,0 +1,78 @@
+/* algemene pagina */
+body{
+    background:#f5f5f5;
+    font-family: 'Inter', sans-serif;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+}
+
+/* telefoon frame */
+.phone{
+    width:390px;
+    height:844px;
+    background:#FFEBF7;
+    border-radius:40px;
+    overflow:hidden;
+    box-shadow:0 10px 30px rgba(0,0,0,0.15);
+    display:flex;
+    flex-direction:column;
+    position:relative;
+}
+
+/* bovenbalk */
+.topbar{
+    background:white;
+    height:110px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+/* titel */
+.title{
+    font-family:'Roboto', sans-serif;
+    font-size:45px;
+    color:#FB66E9;
+    text-shadow:0px 4px 4px rgba(0,0,0,0.25);
+    margin:0;
+}
+
+/* afbeelding */
+.hero{
+    flex:1;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+}
+
+.hero img{
+    max-width:111%;
+    height:auto;
+}
+
+/* knoppen container */
+.buttons{
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+    padding:40px;
+}
+
+/* knoppen */
+.app-btn{
+    background:#EFB8C8;
+    border:1px solid #2C2C2C;
+    border-radius:8px;
+    height:45px;
+    font-size:16px;
+    color:#FFEBF7;
+    letter-spacing:1px;
+    transition:0.2s;
+}
+
+.app-btn:hover{
+    background:#e4a6b8;
+}
