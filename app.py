@@ -1,6 +1,12 @@
 from flask import Flask, render_template
+from data.database import Database
+from models.SQL import Queries
 
 app = Flask(__name__)
+
+
+db = Database("data/crochet.db")
+queries = Queries(db)
 
 @app.route('/', methods=['GET', 'POST'])
 def startscherm():
