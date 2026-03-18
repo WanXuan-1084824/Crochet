@@ -16,7 +16,7 @@ class Database:
         with self.connect() as con:
             cur = con.cursor()
 
-            # Users tabel (voorbeeld)
+            # Users tabel
             cur.execute("""
                 CREATE TABLE IF NOT EXISTS users (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -24,6 +24,20 @@ class Database:
                     password TEXT NOT NULL
                 )
             """)
+
+            # Crochet_Projects tabel
+            cur.execute("""
+                        CREATE TABLE IF NOT EXISTS crochet_projects (
+                        id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        title TEXT NOT NULL,
+                        photo TEXT,
+                        pattern TEXT,
+                        user_id TEXT,
+                        created_at DATE DEFAULT CURRENT_DATE,
+                        supplies TEXT,
+                        FOREIGN KEY (user_id) REFERENCES users(id)
+                        )
+                    """)
 
     def add_column(self, table_name: str, column_name: str, column_type: str):
         """Voeg kolom toe aan bestaande tabel als deze nog niet bestaat"""
