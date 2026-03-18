@@ -83,3 +83,16 @@ body{
     color:#FFEBF7;
     font-size:16px;
 }
+
+/* geen account tekst */
+.geen-account{
+    font-size:14px;
+    text-align:center;
+    margin:0;
+    color:#555;
+}
+
+.geen-account a{
+    color:#e4a6b8;
+    text-decoration:underline;
+}
