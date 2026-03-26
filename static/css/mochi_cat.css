@@ -1,0 +1,100 @@
+body{
+    background:#ddd;
+    font-family: Arial;
+}
+
+/* iPhone frame */
+
+.iphone{
+    position:relative;
+    width:390px;
+    height:844px;
+    margin:auto;
+    background:#FFEBF7;
+    border-radius:40px;
+    overflow:hidden;
+}
+
+/* header */
+
+.header{
+    position:absolute;
+    top:0;
+    width:100%;
+    height:100px;
+    background:#FFEBF7;
+}
+
+/* back button */
+
+.back-btn{
+    position:absolute;
+    left:20px;
+    top:50px;
+    padding:8px 18px;
+    border-radius:100px;
+    background:#EFB8C8;
+    text-decoration:none;
+    color:#757575;
+    font-size:16px;
+}
+
+/* video */
+
+.video{
+    position:absolute;
+    top:130px;
+    left:34px;
+    width:322px;
+    height:222px;
+}
+
+.video iframe{
+    width:100%;
+    height:100%;
+    border-radius:20px;
+}
+
+/* pattern */
+.pattern {
+    position: absolute;
+    top: 380px;
+    left: 20px;
+    right: 20px;
+    bottom: 170px;
+    overflow-y: auto;
+    overflow-x: auto;
+    padding: 5px;
+    }
+
+.pattern pre {
+    font-family: "Roboto Mono", monospace;
+    font-size: 14px;
+    line-height: 100%;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+    width: 100%;
+    text-indent: 0;
+    padding-left: 0;
+
+}
+
+/* main button */
+
+.main-btn{
+    position:absolute;
+    bottom:50px;
+    left:41px;
+    width:307px;
+    height:36px;
+
+    border:none;
+    border-radius:296px;
+
+    background:#EFB8C8;
+    box-shadow:0px 8px 40px rgba(0,0,0,0.12);
+
+    font-size:17px;
+    color:#757575;
+}
