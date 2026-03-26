@@ -51,5 +51,11 @@ def inloggen():
 def projects():
     return render_template('project.html')
 
+@app.route('/mochi_cat', methods=['GET', 'POST'])
+def mochi_cat():
+    project = queries.get_mochi_cat_info()
+    return render_template("mochi_cat.html", project=project)
+
+
 if __name__ == '__main__':
     app.run(debug=True)

@@ -35,3 +35,8 @@ class Queries:
                 (email,)
             )
             return cur.fetchone() is not None
+
+    def get_mochi_cat_info(self):
+        with self.db.connect() as con:
+            cur = con.execute('SELECT * FROM crochet_projects WHERE title = ?', ("Mochi Cat",))
+            return cur.fetchone()
