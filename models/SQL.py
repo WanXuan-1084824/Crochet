@@ -13,6 +13,25 @@ class Queries:
             )
 
     def get_user_by_email(self, email: str):
+        """Check of gebruiker al bestaat"""
         with self.db.connect() as con:
             cur = con.execute("SELECT * FROM users WHERE email = ?", (email,))
-            return cur.fetchone()  # geeft None als niet gevonden
+            return cur.fetchone()
+
+    def login_user(self, email: str, password: str):
+        """Controleer of een gebruiker bestaat met email + wachtwoord."""
+        with self.db.connect() as con:
+            cur = con.execute(
+                "SELECT * FROM users WHERE email = ? AND password = ?",
+                (email, password)
+            )
+            return cur.fetchone()
+
+    def email_check(self, email: str):
+        """Controleer of een e-mailadres bestaat in de database."""
+        with self.db.connect() as con:
+            cur = con.execute(
+                "SELECT 1 FROM users WHERE email = ?",
+                (email,)
+            )
+            return cur.fetchone() is not None

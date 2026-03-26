@@ -74,7 +74,7 @@ body{
 }
 
 /* knop */
-.register-btn{
+.login-btn{
     margin-top:10px;
     background:#EFB8C8;
     border:1px solid #2C2C2C;
@@ -82,4 +82,17 @@ body{
     height:40px;
     color:#FFEBF7;
     font-size:16px;
+}
+
+/* geen account tekst */
+.geen-account{
+    font-size:14px;
+    text-align:center;
+    margin:0;
+    color:#555;
+}
+
+.geen-account a{
+    color:#e4a6b8;
+    text-decoration:underline;
 }
