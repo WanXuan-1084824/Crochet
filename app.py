@@ -38,7 +38,7 @@ def inloggen():
         user = queries.login_user(email, password)
         if user:
             flash(f"Inloggen gelukt! Welkom {user['email']}", "success")
-            return redirect(url_for('startscherm'))
+            return redirect(url_for('projects'))
         else:
             check = queries.email_check(email)
             if not check:
@@ -46,6 +46,10 @@ def inloggen():
             else:
                 flash("Email of wachtwoord incorrect!", "danger")
     return render_template('inloggen.html')
+
+@app.route('/project', methods=['GET', 'POST'])
+def projects():
+    return render_template('project.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
