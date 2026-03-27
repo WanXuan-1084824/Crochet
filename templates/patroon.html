@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/mochi_cat.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/patroon.css') }}">
     <title>{{ project.title }}</title>
 </head>
 
@@ -15,13 +15,13 @@
 
     <!-- Header -->
     <div class="header">
-        <a href="/" class="back-btn">Back</a>
+        <a href="{{ url_for('projects') }}" class="back-btn">Back</a>
     </div>
 
     <!-- Video -->
     <div class="video">
         <iframe
-            src="{{ project.photo }}"
+            src="{{ project.video }}"
             frameborder="0"
             allowfullscreen>
         </iframe>

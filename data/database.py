@@ -54,17 +54,17 @@ class Database:
             # Gebruikers tabel
             # -------------------------
             cur.execute("""
-                CREATE TABLE IF NOT EXISTS gebruikers (
+                CREATE TABLE IF NOT EXISTS users (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     email TEXT NOT NULL UNIQUE,
                     password TEXT NOT NULL
                 )
             """)
 
-            cur.execute("SELECT id FROM gebruikers WHERE id = 1")
+            cur.execute("SELECT id FROM users WHERE id = 1")
             if not cur.fetchone():
                 cur.execute("""
-                    INSERT INTO gebruikers (email, password)
+                    INSERT INTO users (email, password)
                     VALUES (?, ?)
                 """, ("hualing@email.com", "secret"))
 
@@ -75,12 +75,13 @@ class Database:
                 CREATE TABLE IF NOT EXISTS crochet_projects (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     title TEXT NOT NULL,
-                    photo TEXT,
+                    video TEXT,
                     pattern TEXT,
                     user_id INTEGER,
                     created_at DATE DEFAULT CURRENT_DATE,
                     supplies TEXT,
-                    FOREIGN KEY (user_id) REFERENCES gebruikers(id)
+                    image TEXT,
+                    FOREIGN KEY (user_id) REFERENCES users(id)
                 )
             """)
 
@@ -191,14 +192,15 @@ Glue"""
 
                 cur.execute("""
                     INSERT INTO crochet_projects
-                    (title, photo, pattern, user_id, created_at, supplies)
-                    VALUES (?, ?, ?, ?, CURRENT_DATE, ?)
+                    (title, video, pattern, user_id, created_at, supplies, image)
+                    VALUES (?, ?, ?, ?, CURRENT_DATE, ?, ?)
                 """, (
                     "Mini Pets with Hats",
                     "https://www.youtube.com/embed/R9bPd94XnsE",
                     pattern,
                     1,
-                    supplies
+                    supplies,
+                    "mini_pets.png"
                 ))
 
             #reversible_octopus
@@ -250,14 +252,15 @@ Black yarn (for embroidery)"""
 
                 cur.execute("""
                     INSERT INTO crochet_projects
-                    (title, photo, pattern, user_id, created_at, supplies)
-                    VALUES (?, ?, ?, ?, CURRENT_DATE, ?)
+                    (title, video, pattern, user_id, created_at, supplies, image)
+                    VALUES (?, ?, ?, ?, CURRENT_DATE, ?, ?)
                 """, (
                     "Reversible Octopus",
                     "https://www.youtube.com/embed/usC9DkBH9oY",
                     pattern,
                     1,
-                    supplies
+                    supplies,
+                    "octopus.png"
                 ))
 
             #calabash_brothers
@@ -350,14 +353,15 @@ Stuffing"""
 
                 cur.execute("""
                     INSERT INTO crochet_projects
-                    (title, photo, pattern, user_id, created_at, supplies)
-                    VALUES (?, ?, ?, ?, CURRENT_DATE, ?)
+                    (title, video, pattern, user_id, created_at, supplies, image)
+                    VALUES (?, ?, ?, ?, CURRENT_DATE, ?, ?)
                 """, (
                     "Calabash Brothers",
                     "https://www.youtube.com/embed/GU31TcyKXcU",
                     pattern,
                     1,
-                    supplies
+                    supplies,
+                    "huluwa.png"
                 ))
 
             #mochi_cat
@@ -418,14 +422,15 @@ Blush"""
 
                 cur.execute("""
                     INSERT INTO crochet_projects
-                    (title, photo, pattern, user_id, created_at, supplies)
-                    VALUES (?, ?, ?, ?, CURRENT_DATE, ?)
+                    (title, video, pattern, user_id, created_at, supplies, image)
+                    VALUES (?, ?, ?, ?, CURRENT_DATE, ?, ?)
                 """, (
                     "Mochi Cat",
                     "https://www.youtube.com/embed/Iht1z8kpQRA",
                     pattern,
                     1,
-                    supplies
+                    supplies,
+                    "mochi_cat.png"
                 ))
 
             con.commit()

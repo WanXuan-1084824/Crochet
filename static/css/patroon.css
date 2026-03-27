@@ -43,7 +43,7 @@ body{
 
 .video{
     position:absolute;
-    top:130px;
+    top:100px;
     left:34px;
     width:322px;
     height:222px;
@@ -58,7 +58,7 @@ body{
 /* pattern */
 .pattern {
     position: absolute;
-    top: 380px;
+    top: 370px;
     left: 20px;
     right: 20px;
     bottom: 170px;

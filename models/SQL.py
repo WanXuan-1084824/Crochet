@@ -36,7 +36,19 @@ class Queries:
             )
             return cur.fetchone() is not None
 
-    def get_mochi_cat_info(self):
+    def get_project(self, project_id):
         with self.db.connect() as con:
-            cur = con.execute('SELECT * FROM crochet_projects WHERE title = ?', ("Mochi Cat",))
+            cur = con.cursor()
+            cur.execute("""
+                SELECT *
+                FROM crochet_projects
+                WHERE id = ?
+            """, (project_id,))
+
             return cur.fetchone()
+
+    def get_projects(self):
+        with self.db.connect() as con:
+            cur = con.cursor()
+            cur.execute("SELECT * FROM crochet_projects")
+            return cur.fetchall()

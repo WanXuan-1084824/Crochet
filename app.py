@@ -49,13 +49,13 @@ def inloggen():
 
 @app.route('/project', methods=['GET', 'POST'])
 def projects():
-    return render_template('project.html')
+    projects = queries.get_projects()
+    return render_template('project.html', projects=projects)
 
-@app.route('/mochi_cat', methods=['GET', 'POST'])
-def mochi_cat():
-    project = queries.get_mochi_cat_info()
-    return render_template("mochi_cat.html", project=project)
-
+@app.route('/project/<int:project_id>')
+def project_detail(project_id):
+    project = queries.get_project(project_id)
+    return render_template("patroon.html", project=project)
 
 if __name__ == '__main__':
     app.run(debug=True)
