@@ -73,9 +73,25 @@ class Queries:
 
             return cur.fetchone()
 
-    # In queries.py
     def get_haaktermen(self):
         with self.db.connect() as con:
             cur = con.cursor()
             cur.execute("SELECT id, naam, afkorting, url FROM haaktermen")
-            return cur.fetchall()  # lijst van tuples (id, naam, afkorting, url)
+            return cur.fetchall()
+
+    def search_projects(self, search):
+        with self.db.connect() as con:
+            cur = con.cursor()
+
+            cur.execute("""
+                SELECT * FROM crochet_projects
+                WHERE title LIKE ?
+                OR pattern LIKE ?
+                OR supplies LIKE ?
+            """, (
+                f"%{search}%",
+                f"%{search}%",
+                f"%{search}%"
+            ))
+
+            return cur.fetchall()

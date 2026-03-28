@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, flash, session
 from data.database import Database
 from models.SQL import Queries
 
@@ -49,7 +49,12 @@ def inloggen():
 
 @app.route('/project', methods=['GET', 'POST'])
 def projects():
-    projects = queries.get_projects()
+    search = request.args.get("q")
+
+    if search:
+        projects = queries.search_projects(search)
+    else:
+        projects = queries.get_projects()
     return render_template('project.html', projects=projects)
 
 def make_terms_clickable(pattern, haaktermen, project_id):

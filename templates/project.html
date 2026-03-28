@@ -20,7 +20,9 @@
 
      <!-- Search -->
     <div class="search-box">
-        <input type="text" placeholder="Search">
+    <form method="GET" action="{{ url_for('projects') }}">
+        <input type="text" name="q" placeholder="Search" value="{{ request.args.get('q','') }}">
+    </form>
     </div>
 
     <!-- Images -->
