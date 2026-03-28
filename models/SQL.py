@@ -95,3 +95,18 @@ class Queries:
             ))
 
             return cur.fetchall()
+
+    def get_posts(self):
+        with self.db.connect() as con:
+            cur = con.cursor()
+
+            cur.execute("""
+            SELECT
+                media AS foto,
+                title AS titel,
+                inhoud AS tekst
+            FROM vragen
+            ORDER BY created_at DESC
+            """)
+
+            return cur.fetchall()

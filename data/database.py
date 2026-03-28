@@ -31,6 +31,48 @@ class Database:
             cur = con.cursor()
 
             # -------------------------
+            # Gebruikers tabel
+            # -------------------------
+            cur.execute("""
+                           CREATE TABLE IF NOT EXISTS users (
+                               id INTEGER PRIMARY KEY AUTOINCREMENT,
+                               email TEXT NOT NULL UNIQUE,
+                               password TEXT NOT NULL
+                           )
+                       """)
+
+            cur.execute("SELECT id FROM users WHERE id = 1")
+            if not cur.fetchone():
+                cur.execute("""
+                               INSERT INTO users (email, password)
+                               VALUES (?, ?)
+                           """, ("hualing@email.com", "secret"))
+                cur.execute("""INSERT INTO users (email, password) VALUES (?, ?) """, ("bingjing@email.com", "secret"))
+
+
+            # -------------------------
+            # Community - vragen tabel
+            # -------------------------
+            cur.execute("""
+            CREATE TABLE IF NOT EXISTS vragen (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                user_id INTEGER NOT NULL,
+                title TEXT NOT NULL,
+                inhoud TEXT NOT NULL,
+                media TEXT,
+                created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+                FOREIGN KEY (user_id) REFERENCES users(id)
+            )
+            """)
+
+            cur.execute("SELECT COUNT(*) FROM vragen")
+            count = cur.fetchone()[0]
+
+            if count == 0:
+                cur.execute("INSERT INTO vragen (user_id, title, inhoud, media) VALUES (1, 'Welke haaknaald voor gebruik?', 'Ik heb een wol gekocht bij de Zeeman, hoe kan ik weten welke haaknaald ik moet gebruiken voor die wol?', 'wol.jpeg')")
+                cur.execute("INSERT INTO vragen (user_id, title, inhoud, media) VALUES (2, 'Waar is mijn volgende stitch?', 'Ik heb een stukje al genmaakt maar ik weet niet meer zeker welke plek in moet steken met haaknaald, kan iemand me helpen?', 'stitch.jpeg')")
+
+            # -------------------------
             # Haaktermen tabel
             # -------------------------
             cur.execute("""
@@ -50,23 +92,6 @@ class Database:
                     term
                 )
 
-            # -------------------------
-            # Gebruikers tabel
-            # -------------------------
-            cur.execute("""
-                CREATE TABLE IF NOT EXISTS users (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    email TEXT NOT NULL UNIQUE,
-                    password TEXT NOT NULL
-                )
-            """)
-
-            cur.execute("SELECT id FROM users WHERE id = 1")
-            if not cur.fetchone():
-                cur.execute("""
-                    INSERT INTO users (email, password)
-                    VALUES (?, ?)
-                """, ("hualing@email.com", "secret"))
 
             # -------------------------
             # Crochet Projects tabel

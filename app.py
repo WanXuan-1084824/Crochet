@@ -129,5 +129,10 @@ def stitch_min():
         session['stitch'] = stitch - 1
     return redirect(url_for('ronde'))
 
+@app.route('/community')
+def community():
+    posts = queries.get_posts()
+    return render_template('vragen.html', posts=posts)
+
 if __name__ == '__main__':
     app.run(debug=True)
