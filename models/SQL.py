@@ -98,10 +98,12 @@ class Queries:
 
     def get_posts(self):
         with self.db.connect() as con:
+            con.row_factory = sqlite3.Row
             cur = con.cursor()
 
             cur.execute("""
             SELECT
+                id,
                 media AS foto,
                 title AS titel,
                 inhoud AS tekst
@@ -110,3 +112,31 @@ class Queries:
             """)
 
             return cur.fetchall()
+
+    def get_post(self, post_id):
+        with self.db.connect() as con:
+            cur = con.cursor()
+
+            cur.execute("""
+            SELECT
+                id,
+                media AS foto,
+                title AS titel,
+                inhoud AS tekst
+            FROM vragen
+            WHERE id = ?
+            """, (post_id,))
+
+            return cur.fetchone()
+
+    def save_answer(self, user_id, vraag_id, tekst, foto, video, audio):
+        with self.db.connect() as con:
+            """Sla een antwoord op inclusief bestanden in de database"""
+            cur = con.cursor()
+            cur.execute(
+                """
+                INSERT INTO antwoorden (user_id, vraag_id, tekst, foto, video, audio)
+                VALUES (?, ?, ?, ?, ?, ?)
+                """,
+                (user_id, vraag_id, tekst, foto, video, audio)
+            )
