@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/vragen.css') }}">
+    <title>Community</title>
+</head>
+<body>
+<div class="iphone">
+
+    <!-- Tabs -->
+    <div class="tabs">
+        <a class="tab" href="{{ url_for('projects') }}" class="tab">Project</a>
+        <a class="tab" href="#" class="tab">Ontwerp</a>
+        <a class="tab active" href="{{ url_for('community') }}" class="tab active">Community</a>
+    </div>
+
+    <!-- Subtabs -->
+    <div class="subtabs">
+        <a href="{{ url_for('community') }}" class="subtab active">Beantwoorden</a>
+        <a href="#" class="subtab">Vragen</a>
+    </div>
+
+    <!-- Cards -->
+    <div class="cards">
+        {% for post in posts %}
+        <div class="card">
+            <div class="card-img">
+                {% if post.foto %}
+                <img src="{{ url_for('static', filename='images/' + post.foto)}}" alt="foto">
+                {% endif %}
+            </div>
+            <h2 class="card-titel">{{ post.titel }}</h2>
+            <p class="card-tekst">{{ post.tekst }}</p>
+            <a href="#" class="answer-btn">Answer</a>
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+</body>
+</html>

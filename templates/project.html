@@ -13,14 +13,16 @@
 
     <!-- Tabs -->
     <div class="tabs">
-        <a class="tab active" href="#">Project</a>
+        <a class="tab active" href="{{ url_for('projects') }}">Project</a>
         <a class="tab" href="#">Ontwerp</a>
-        <a class="tab" href="#">Community</a>
+        <a class="tab" href="{{ url_for('community') }}">Community</a>
     </div>
 
      <!-- Search -->
     <div class="search-box">
-        <input type="text" placeholder="Search">
+    <form method="GET" action="{{ url_for('projects') }}">
+        <input type="text" name="q" placeholder="Search" value="{{ request.args.get('q','') }}">
+    </form>
     </div>
 
     <!-- Images -->
