@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/haakafkorting.css') }}">
+    <title>{{ term.naam }}</title>
+</head>
+<body>
+<div class="iphone">
+
+    <div class="header">
+        <a href="{{ url_for('project_detail', project_id=project_id)}}" class="back-btn">Back</a>
+    </div>
+
+    <div class="video">
+        <iframe src="{{ term.url }}" frameborder="0" allowfullscreen></iframe>
+    </div>
+
+
+</div>
+</body>
+</html>

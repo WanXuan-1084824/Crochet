@@ -1,5 +1,19 @@
 import sqlite3
-
+haaktermen = [
+                ("magic ring", "mr", "https://www.youtube.com/embed/hNq4d1w-eQA"),
+                ("single crochet", "sc", "https://www.youtube.com/embed/3DNRFfbFZ3o"),
+                ("increase", "inc", "https://www.youtube.com/embed/5aDHW7yOICk"),
+                ("decrease", "dec", "https://www.youtube.com/embed/fB64nsKHGuQ"),
+                ("chain", "ch", "https://www.youtube.com/embed/hqyEXkgjTL8"),
+                ("half double crochet", "hdc", "https://www.youtube.com/embed/BRZfDGtN2vE"),
+                ("slip stitch", "sl st", "https://www.youtube.com/embed/axhed3wSm3U"),
+                ("bobble stitch", "bo", "https://www.youtube.com/embed/bb2nmzSEP-Q"),
+                ("double crochet", "dc", "https://www.youtube.com/embed/vmk85y1du_4"),
+                ("back loops only", "blo", "https://www.youtube.com/embed/RSNkSH6rMYE"),
+                ("treble crochet", "tr", "https://www.youtube.com/embed/_9ba2Vldelo"),
+                ("picot stitch", "picot", "https://www.youtube.com/embed/8bVWzFZqqfk"),
+                ("front loops only", "flo", "https://www.youtube.com/embed/1FEHqMXULNw"),
+            ]
 class Database:
     def __init__(self, path: str):
         self.path = path
@@ -28,21 +42,7 @@ class Database:
                 )
             """)
 
-            haaktermen = [
-                ("magic ring", "mr", "https://www.youtube.com/embed/hNq4d1w-eQA"),
-                ("single crochet", "sc", "https://www.youtube.com/embed/3DNRFfbFZ3o"),
-                ("increase", "inc", "https://www.youtube.com/embed/5aDHW7yOICk"),
-                ("decrease", "dec", "https://www.youtube.com/embed/fB64nsKHGuQ"),
-                ("chain", "ch", "https://www.youtube.com/embed/hqyEXkgjTL8"),
-                ("half double crochet", "hdc", "https://www.youtube.com/embed/BRZfDGtN2vE"),
-                ("slip stitch", "sl st", "https://www.youtube.com/embed/axhed3wSm3U"),
-                ("bobble stitch", "bo", "https://www.youtube.com/embed/bb2nmzSEP-Q"),
-                ("double crochet", "dc", "https://www.youtube.com/embed/vmk85y1du_4"),
-                ("back loops only", "blo", "https://www.youtube.com/embed/RSNkSH6rMYE"),
-                ("treble crochet", "tr", "https://www.youtube.com/embed/_9ba2Vldelo"),
-                ("picot stitch", "picot", "https://www.youtube.com/embed/8bVWzFZqqfk"),
-                ("front loops only", "flo", "https://www.youtube.com/embed/1FEHqMXULNw"),
-            ]
+
 
             for term in haaktermen:
                 cur.execute(
@@ -90,7 +90,7 @@ class Database:
 
             if not cur.fetchone():
                 pattern = """Body
-R1: 6 sc in MR
+R1: 6 sc in mr
 R2: inc in each stitch (12)
 R3: (1 sc, inc) x6 (18)
 R4: (2 sc, inc) x6 (24)
@@ -218,7 +218,7 @@ R12: (3 sc, dec) x8 [32]
 
 R13:
 (2 sc, make 6 chains,
-start from ch2 make 5 sc,
+start from ch 2 make 5 sc,
 dec, 1 sc) x8
 
 R14:
@@ -377,8 +377,8 @@ R4: (sc, inc, sc) * 6 [24]
 R5: (3sc, inc) * 6 [30]
 R6-9: sc around [30]
 R10: (3sc, dec) * 6 [24]
-Tail: ch7, from the second chain from the hook: hdc, 5slst
-R11: dec, 2sc, bo, dec, sc, dec, bo, sc, dec, sc, bo, dec, sc, dec, bo 2sc [18]
+Tail: ch * 7, from the second chain from the hook: hdc, 5slst
+R11: dec, 2 sc, bo, dec, sc, dec, bo, sc, dec, sc, bo, dec, sc, dec, bo 2 sc [18]
 Add stuffing
 R12: (sc, dec) * 6 [12]
 R13: dec * 6 [6]
@@ -386,10 +386,10 @@ Leave a medium tail, fasten off and sew the hole closed
                      
 Cat ears 
 Right ears:  
-Ch3, from the 2nd chain from the hook: hdc, dc, slst to R3 
+Ch 3, from the 2nd chain from the hook: hdc, dc, slst to R3 
 Sew to secure and hide the ends 
                      
-Left ear: ch3, from the  2nd chain from the hook: hdc, dc, slst to R5 
+Left ear: ch 3, from the  2nd chain from the hook: hdc, dc, slst to R5 
 Sew to secure and hide the ends 
                      
 Face details 
@@ -400,9 +400,9 @@ Use brown yarn to make stripes on the cat
                      
 Cat with two colors pattern: 
 Repeat R1 to R5 as one color cat 
-R5: (3sc, inc) * 3, (change color 2sc), sc, inc, (3sc, inc) *2 [30] 
-R6: 14 sc, (change color 4sc), 12 sc [30] 
-R7: 13sc, (change color 6sc), 11sc [30] 
+R5: (3 sc, inc) * 3, (change color 2sc), sc, inc, (3 sc, inc) *2 [30] 
+R6: 14 sc, (change color 4 sc), 12 sc [30] 
+R7: 13 sc, (change color 6 sc), 11 sc [30] 
 R8-20: follow the same pattern as R6 to R13 in the one color cat pattern, but with the another color yarn 
                      
 Then embroider the face details"""

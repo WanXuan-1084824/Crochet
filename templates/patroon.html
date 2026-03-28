@@ -29,11 +29,11 @@
 
     <!-- Pattern text -->
     <div class="pattern">
-        <pre>{{ project.pattern }}</pre>
+        <pre>{{ pattern_clickable|safe }}</pre>
     </div>
 
     <!-- Supplies button -->
-    <button class="main-btn">Start</button>
+    <a href="{{ url_for('term',  term_id=project['id'] ) }}" class="main-btn">Start</a>
 
 </div>
 

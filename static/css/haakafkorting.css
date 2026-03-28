@@ -97,20 +97,4 @@ body{
 
     font-size:17px;
     color:#757575;
-    text-decoration:none;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-}
-
-.term{
-color:#E04B86;
-font-weight:bold;
-text-decoration:none;
-}
-
-.term:hover{
-text-decoration:underline;
 }
