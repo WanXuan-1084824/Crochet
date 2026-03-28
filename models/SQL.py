@@ -1,3 +1,4 @@
+import sqlite3
 from data.database import Database
 
 class Queries:
@@ -36,7 +37,45 @@ class Queries:
             )
             return cur.fetchone() is not None
 
-    def get_mochi_cat_info(self):
+    def get_project(self, project_id):
         with self.db.connect() as con:
-            cur = con.execute('SELECT * FROM crochet_projects WHERE title = ?', ("Mochi Cat",))
+            cur = con.cursor()
+            cur.execute("""
+                SELECT *
+                FROM crochet_projects
+                WHERE id = ?
+            """, (project_id,))
+
             return cur.fetchone()
+
+    def get_projects(self):
+        with self.db.connect() as con:
+            cur = con.cursor()
+            cur.execute("SELECT * FROM crochet_projects")
+            return cur.fetchall()
+
+    def get_terms(self):
+        with self.db.connect() as con:
+            cur = con.cursor()
+
+            cur.execute("SELECT * FROM haaktermen")
+
+            return cur.fetchall()
+
+    def get_term(self, term_id):
+        with self.db.connect() as con:
+            cur = con.cursor()
+            con.row_factory = sqlite3.Row
+            cur.execute(
+                "SELECT * FROM haaktermen WHERE id = ?",
+                (term_id,)
+            )
+
+            return cur.fetchone()
+
+    # In queries.py
+    def get_haaktermen(self):
+        with self.db.connect() as con:
+            cur = con.cursor()
+            cur.execute("SELECT id, naam, afkorting, url FROM haaktermen")
+            return cur.fetchall()  # lijst van tuples (id, naam, afkorting, url)

@@ -43,7 +43,7 @@ body{
 
 .video{
     position:absolute;
-    top:130px;
+    top:100px;
     left:34px;
     width:322px;
     height:222px;
@@ -58,7 +58,7 @@ body{
 /* pattern */
 .pattern {
     position: absolute;
-    top: 380px;
+    top: 370px;
     left: 20px;
     right: 20px;
     bottom: 170px;
@@ -97,4 +97,20 @@ body{
 
     font-size:17px;
     color:#757575;
+    text-decoration:none;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.term{
+color:#E04B86;
+font-weight:bold;
+text-decoration:none;
+}
+
+.term:hover{
+text-decoration:underline;
 }

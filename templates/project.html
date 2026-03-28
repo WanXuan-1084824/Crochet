@@ -25,31 +25,11 @@
 
     <!-- Images -->
     <div class="gallery">
-
-        <a href="{{url_for('mochi_cat')}}">
-            <img src="{{ url_for('static', filename= 'images/mochi_cat.png') }}">
+        {% for project in projects %}
+        <a href="{{ url_for('project_detail', project_id=project.id) }}">
+            <img src="{{ url_for('static', filename='images/' + project.image) }}">
         </a>
-
-        <a href="#">
-            <img src="{{ url_for('static', filename= 'images/huluwa.png') }}">
-        </a>
-
-        <a href="#">
-            <img src="{{ url_for('static', filename= 'images/octopus.png') }}">
-        </a>
-
-        <a href="#">
-            <img src="{{ url_for('static', filename= 'images/mini_pets.png') }}">
-        </a>
-
-        <a href="#">
-            <img src="{{ url_for('static', filename= 'images/couple_bear.png') }}">
-        </a>
-
-        <a href="#">
-            <img src="{{ url_for('static', filename= 'images/airpods_case.png') }}">
-        </a>
-
+        {% endfor %}
     </div>
 
 </div>

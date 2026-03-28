@@ -1,5 +1,7 @@
+import re
 from flask import Flask, render_template, request, redirect, url_for, flash
 from data.database import Database
+from data.database import haaktermen
 from models.SQL import Queries
 
 app = Flask(__name__)
@@ -49,13 +51,45 @@ def inloggen():
 
 @app.route('/project', methods=['GET', 'POST'])
 def projects():
-    return render_template('project.html')
+    projects = queries.get_projects()
+    return render_template('project.html', projects=projects)
 
-@app.route('/mochi_cat', methods=['GET', 'POST'])
-def mochi_cat():
-    project = queries.get_mochi_cat_info()
-    return render_template("mochi_cat.html", project=project)
+def make_terms_clickable(pattern, haaktermen, project_id):
+    import re
+    for term_id, naam, abbrev, url in haaktermen:  # let op: voeg id toe
+        for term in [abbrev, naam]:
+            pattern = re.sub(
+                rf'(?<!\w){re.escape(term)}(?!\w)',
+                f'<a href="/term/{term_id}?project_id={project_id}">{term}</a>',
+                pattern
+            )
+    return pattern
 
+@app.route('/project/<int:project_id>')
+def project_detail(project_id):
+    project = queries.get_project(project_id)
+    terms = queries.get_terms()
+    haaktermen = queries.get_haaktermen()
+
+    pattern_text = project['pattern']
+    clickable_pattern = make_terms_clickable(pattern_text, haaktermen, project_id)
+
+    return render_template(
+        "patroon.html",
+        project=project,
+        pattern_clickable=clickable_pattern,
+        terms=terms
+    )
+
+@app.route('/term/<int:term_id>')
+def term(term_id):
+    project_id = request.args.get('project_id', type=int)
+    term = queries.get_term(term_id)
+    return render_template(
+        "haakafkorting.html",
+        term=term,
+        project_id=project_id
+    )
 
 if __name__ == '__main__':
     app.run(debug=True)
