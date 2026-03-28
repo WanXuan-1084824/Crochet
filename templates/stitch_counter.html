@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/stitch_counter.css') }}">
+    <title>Ronde</title>
+</head>
+<body>
+<div class="iphone">
+
+    <div class="header">
+        <a href="{{ url_for('projects') }}" class="back-btn">Back</a>
+    </div>
+
+    <div class="content">
+        <h1 class="ronde-titel">Round</h1>
+
+        <div class="teller">
+            <a href="{{ url_for('ronde_min') }}" class="teller-btn">−</a>
+            <span class="teller-getal">{{ session['teller'] }}</span>
+            <a href="{{ url_for('ronde_plus') }}" class="teller-btn">+</a>
+        </div>
+        <br><br><br>
+        <h2>Stitch</h2>
+        <div class="teller">
+            <a href="{{ url_for('stitch_min') }}" class="teller-btn">−</a>
+            <span class="teller-getal">{{ session['stitch'] }}</span>
+            <a href="{{ url_for('stitch_plus') }}" class="teller-btn">+</a>
+        </div>
+    </div>
+
+    <a href="{{ url_for('stitch_plus') }}" class="main-btn">Toevoegen</a>
+
+</div>
+</body>
+</html>

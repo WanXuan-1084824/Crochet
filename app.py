@@ -1,7 +1,5 @@
-import re
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for, session
 from data.database import Database
-from data.database import haaktermen
 from models.SQL import Queries
 
 app = Flask(__name__)
@@ -90,6 +88,41 @@ def term(term_id):
         term=term,
         project_id=project_id
     )
+
+@app.route('/stitch_counter/<int:project_id>')
+def stitch_counter(project_id):
+    project = queries.get_project(project_id)
+    return render_template("stitch_counter.html", project=project)
+
+@app.route('/ronde_plus')
+def ronde_plus():
+    session['teller'] = session.get('teller', 0) + 1
+    return redirect(url_for('ronde'))
+
+@app.route('/ronde_min')
+def ronde_min():
+    teller = session.get('teller', 0)
+    if teller > 0:
+        session['teller'] = teller - 1
+    return redirect(url_for('ronde'))
+
+@app.route('/ronde')
+def ronde():
+    teller = session.get('teller', 0)
+    stitch = session.get('stitch', 0)
+    return render_template('stitch_counter.html', teller=teller)
+
+@app.route('/stitch_plus')
+def stitch_plus():
+    session['stitch'] = session.get('stitch', 0) + 1
+    return redirect(url_for('ronde'))
+
+@app.route('/stitch_min')
+def stitch_min():
+    stitch = session.get('stitch', 0)
+    if stitch > 0:
+        session['stitch'] = stitch - 1
+    return redirect(url_for('ronde'))
 
 if __name__ == '__main__':
     app.run(debug=True)
