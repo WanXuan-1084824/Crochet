@@ -178,5 +178,22 @@ def answer(post_id):
 
     return render_template('beantwoorden.html', posts=posts)
 
+@app.route('/create', methods=['GET', 'POST'])
+def create():
+    if request.method == 'POST':
+        titel = request.form.get('titel')
+        inhoud = request.form.get('tekst')
+        user_id = session.get('user_id')
+        foto_file = request.files.get('foto')
+
+        media_filename = None
+        if foto_file and foto_file.filename != '' and allowed_file(foto_file.filename):
+            media_filename = secure_filename(foto_file.filename)
+            foto_file.save(os.path.join(app.config['UPLOAD_FOLDER'], media_filename))
+
+        queries.save_post(titel, inhoud, media_filename, user_id)
+        return redirect(url_for('questions'))
+
+    return render_template('maken.html')
 if __name__ == '__main__':
     app.run(debug=True)

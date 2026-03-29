@@ -140,3 +140,12 @@ class Queries:
                 """,
                 (user_id, vraag_id, tekst, foto, video, audio)
             )
+
+    def save_post(self, titel, inhoud, media_filename, user_id):
+        with self.db.connect() as con:
+            cur = con.cursor()
+            cur.execute("""
+            INSERT INTO vragen (user_id, title, inhoud, media)
+            VALUES (?, ?, ?, ?)
+        """, (user_id, titel, inhoud, media_filename))
+            con.commit()

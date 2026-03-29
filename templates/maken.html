@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/maken.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <title>Community</title>
+</head>
+<body>
+<div class="iphone">
+
+    <div class="tabs">
+        <a href="{{ url_for('projects') }}" class="tab">Project</a>
+        <a href="#" class="tab">Ontwerp</a>
+        <a href="{{ url_for('questions') }}" class="tab active">Community</a>
+    </div>
+
+    <div class="subtabs">
+        <a href="{{ url_for('questions') }}" class="subtab">Beantwoorden</a>
+        <a href="{{ url_for('create') }}" class="subtab active">Vragen</a>
+    </div>
+
+    <form action="{{ url_for('create') }}" method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="user_id" value="{{ session['user_id'] }}">
+
+        <div class="card">
+            <label class="foto-label">
+                <input type="file" name="foto" accept="image/*" hidden>
+                <div class="foto-placeholder">
+                    <i class="fa-regular fa-image"></i>
+                </div>
+            </label>
+            <input type="text" name="titel" class="titel-input" placeholder="Title" required>
+            <textarea name="tekst" class="tekst-input" placeholder="Text and Question." required></textarea>
+            <button type="submit" class="send-btn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                    <line x1="12" y1="19" x2="12" y2="5"/>
+                    <polyline points="5 12 12 5 19 12"/>
+                </svg>
+            </button>
+        </div>
+    </form>
+
+</div>
+</body>
+</html>
