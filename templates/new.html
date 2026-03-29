@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nieuw Project</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/three@0.158.0/build/three.min.js"></script>
+
+<style>
+body {
+    background: #ddd;
+    font-family: Roboto, Arial;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.iphone {
+    width: 390px;
+    height: 844px;
+    background: #FFEBF7;
+    border-radius: 40px;
+    padding: 30px;
+    padding-top: 70px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    position: relative;
+    overflow-y: auto;
+}
+
+/* Back button */
+.back {
+    background: #e39fb2;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+}
+
+/* Preview canvas */
+.preview {
+    margin-top: 20px;
+    height: 260px;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.form-card {
+    background: #d9d9d9;
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+    min-height: 280px;
+    padding: 35px;
+}
+
+/* iPhone-style input blocks */
+.input-field {
+    width: 100%;
+    background: #f5f5f5;
+    border: none;
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 15px;
+    outline: none;
+}
+
+/* Pattern mag groter zijn */
+.pattern-field {
+    min-height: 80px;
+    resize: vertical;
+}
+
+/* Icons */
+.attachment-row {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    margin-top: 5px;
+}
+
+.attachment-row i {
+    font-size: 22px;
+    color: #555;
+    cursor: pointer;
+}
+
+/* Opslaan */
+.send-btn {
+    margin-top: 20px;
+    width: 100%;
+    background: #e39fb2;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 12px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+
+
+</style>
+</head>
+<body>
+
+<div class="iphone">
+
+<header>
+    <a href="{{ url_for('mijn_overzicht') }}" class="back">Back</a>
+</header>
+
+<div class="preview">
+    <canvas id="crochetCanvas"></canvas>
+</div>
+
+<form action="{{ url_for('new') }}" method="POST" enctype="multipart/form-data">
+
+    <div class="form-card">
+
+        <!-- TITLE -->
+        <input type="text" name="title" class="input-field" placeholder="Title" required>
+
+        <!-- BIJLAGE -->
+        <input type="text" name="supplies" class="input-field" placeholder="Bijlage" required>
+
+        <!-- PATROON (triggert 3D generator) -->
+        <textarea name="pattern" id="cardPattern" class="input-field pattern-field" placeholder="patronen" required></textarea>
+
+        <!-- ICONS -->
+        <div class="attachment-row">
+            <label>
+                <input type="file" name="image" required accept="image/*" hidden >
+                <i class="fa-regular fa-image"></i>
+            </label>
+
+            <label>
+                <input type="file" name="video" accept="video/*" hidden>
+                <i class="fa-solid fa-video"></i>
+            </label>
+        </div>
+
+    </div>
+
+    <button type="submit" class="send-btn">Opslaan</button>
+
+</form>
+
+
+
+
+</div>
+
+<script>
+// 👇 Three.js canvas setup (kan je behouden van je vorige code)
+const canvas = document.getElementById("crochetCanvas");
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(60, canvas.clientWidth / canvas.clientHeight, 0.1, 100);
+camera.position.z = 8;
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
+renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+renderer.setClearColor(0xffffff, 1);
+const light = new THREE.DirectionalLight(0xffffff, 1);
+light.position.set(5,10,7);
+scene.add(light);
+
+let stitches = [];
+function createStitch(x,y,z){
+    const geometry = new THREE.SphereGeometry(0.08,10,10);
+    const material = new THREE.MeshStandardMaterial({color:"#ff6699", roughness:0.8});
+    const mesh = new THREE.Mesh(geometry, material);
+    mesh.position.set(x,y,z);
+    scene.add(mesh);
+    stitches.push(mesh);
+}
+function generateModelFromPattern(patternText){
+    stitches.forEach(s=>scene.remove(s));
+    stitches=[];
+    const pattern = patternText.split("\n");
+    let stitchCount = 6;
+    const stepHeight = 0.25;
+    let height = pattern.length * stepHeight;
+    pattern.forEach(row=>{
+        if(row.includes("inc")) stitchCount*=2;
+        let radius = stitchCount*0.05;
+        for(let i=0;i<stitchCount;i++){
+            let angle=(i/stitchCount)*Math.PI*2;
+            let x=Math.cos(angle)*radius;
+            let y=Math.sin(angle)*radius;
+            createStitch(x,y,height);
+        }
+        height-=stepHeight;
+    });
+}
+function animate(){requestAnimationFrame(animate);scene.rotation.y+=0.01;renderer.render(scene,camera);}
+animate();
+document.getElementById("cardPattern").addEventListener("input",e=>generateModelFromPattern(e.target.value));
+</script>
+
+</body>
+</html>

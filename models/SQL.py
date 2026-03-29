@@ -149,3 +149,38 @@ class Queries:
             VALUES (?, ?, ?, ?)
         """, (user_id, titel, inhoud, media_filename))
             con.commit()
+
+    def get_ontwerpen(self, user_id):
+        with self.db.connect() as con:
+            con.row_factory = sqlite3.Row
+            cur = con.cursor()
+            cur.execute("""
+            SELECT * FROM crochet_projects 
+            WHERE user_id = ?
+            ORDER BY created_at DESC
+        """, (user_id,))
+            return cur.fetchall()
+
+    def insert_project(self,  user_id, title, pattern, supplies, image=None, video=None):
+        with self.db.connect() as con:
+            cur = con.cursor()
+            cur.execute(
+                """
+                INSERT INTO crochet_projects (user_id, title, pattern, supplies, image, video)
+                VALUES (?, ?, ?, ?, ?, ?)
+                """,
+                (user_id, title, pattern, supplies, image, video)
+            )
+            con.commit()
+
+    def search_projects(self, user_id, search_term):
+        """Zoek projecten van een specifieke gebruiker op titel of pattern"""
+        with self.db.connect() as con:
+            con.row_factory = sqlite3.Row
+            cur = con.cursor()
+            cur.execute("""
+                SELECT * FROM crochet_projects
+                WHERE user_id = ? AND (title LIKE ? )
+                ORDER BY created_at DESC
+            """, (user_id, f"%{search_term}%"))
+            return cur.fetchall()

@@ -21,7 +21,7 @@ body {
     border-bottom:1px solid #CAC4D0;
 }
 
-.tab {
+.tab{
     padding:12px;
     text-decoration:none;
     color:#49454F;
@@ -36,26 +36,26 @@ body {
 /* Subtabs */
 .subtabs {
     display: flex;
-    flex-direction: row;
-    margin: 12px 20px;
-    background: #e0e0e0;
+    margin: 12px 10px;
+    background: rgba(118, 118, 128, 0.12);
     border-radius: 100px;
-    padding: 3px;
+    padding: 2px;
+    gap: 4px;
 }
 
 .subtab {
     flex: 1;
     text-align: center;
     padding: 8px 0;
-    font-size: 14px;
-    color: #49454F;
+    font-size: 13px;
+    font-weight: 500;
+    color: #000;
     text-decoration: none;
     border-radius: 100px;
 }
 
 .subtab.active {
     background: white;
-    color: #1E1E1E;
 }
 
 /* Cards */
@@ -102,10 +102,12 @@ body {
 
 .answer-btn {
     display: inline-block;
+    text-align: center;
     padding: 6px 16px;
-    border: 1px solid #49454F;
+    border: 1px solid white;
     border-radius: 6px;
     font-size: 14px;
-    color: #49454F;
+    color: white;
+    background: #EFB8C8;
     text-decoration: none;
 }

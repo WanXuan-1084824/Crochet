@@ -195,5 +195,63 @@ def create():
         return redirect(url_for('questions'))
 
     return render_template('maken.html')
+
+
+@app.route('/mijn_overzicht', methods=['GET', 'POST'])
+def mijn_overzicht():
+    user_id = session.get('user_id')
+    search = request.args.get("q")  # zoekterm van search bar
+
+    if search:
+        # Zoek in **alle projecten van deze gebruiker** op titel of pattern
+        ontwerpen = queries.search_projects(user_id, search)
+    else:
+        # Alles van deze gebruiker
+        ontwerpen = queries.get_ontwerpen(user_id)
+
+    return render_template('mijn_overzicht.html', ontwerpen=ontwerpen)
+
+@app.route('/new', methods=['GET', 'POST'])
+def new():
+    if request.method == 'POST':
+        # Form data ophalen
+        user_id = session.get('user_id')
+        title = request.form.get('title')
+        pattern = request.form.get('pattern')
+        supplies = request.form.get('supplies')
+
+        image_file = request.files.get('image')
+        video_file = request.files.get('video')
+
+        image_name = None
+        video_name = None
+
+        UPLOAD_FOLDER = 'static/uploads'
+
+        # Afbeelding opslaan
+        if image_file and allowed_file(image_file.filename):
+            image_name = secure_filename(image_file.filename)
+            image_file.save(os.path.join(UPLOAD_FOLDER, image_name))
+
+        # Video opslaan
+        if video_file and allowed_file(video_file.filename):
+            video_name = secure_filename(video_file.filename)
+            video_file.save(os.path.join(UPLOAD_FOLDER, video_name))
+
+        # Opslaan in database via je Queries klasse
+        queries.insert_project(
+            user_id=user_id,
+            title=title,
+            pattern=pattern,
+            supplies=supplies,
+            image=image_name,
+            video=video_name
+        )
+
+        return redirect(url_for('projects'))
+
+    # GET request → toon formulier
+    return render_template('new.html')
+
 if __name__ == '__main__':
     app.run(debug=True)
