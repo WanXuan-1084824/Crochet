@@ -13,8 +13,9 @@
 <div class="iphone">
 
     <!-- Header -->
-    <div class="header">
+    <div class="topbar">
         <a href="{{ url_for('projects') }}" class="back-btn">Back</a>
+        <a href="{{ url_for('supplies', project_id=project['id']) }}" class="supplies-btn">Supplies</a>
     </div>
 
     <!-- Video -->

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<title>Supplies</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/supplies.css') }}">
+</head>
+
+<body>
+
+<div class="phone">
+
+<div class="topbar">
+<a href="{{ url_for('project_detail', project_id=project['id']) }}" class="back-btn">
+Back
+</a>
+</div>
+
+<div class="supplies-content">
+
+<h2>Supplies</h2>
+<div class="supplies-text">
+<p>
+{{ project['supplies'] }}
+</p>
+</div>
+</div>
+
+</div>
+
+</body>
+</html>

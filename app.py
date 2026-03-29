@@ -253,5 +253,15 @@ def new():
     # GET request → toon formulier
     return render_template('new.html')
 
+@app.route('/supplies/<int:project_id>')
+def supplies(project_id):
+
+    project = queries.get_project(project_id)
+
+    return render_template(
+        'supplies.html',
+        project=project
+    )
+
 if __name__ == '__main__':
     app.run(debug=True)
