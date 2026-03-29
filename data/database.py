@@ -72,6 +72,17 @@ class Database:
                 cur.execute("INSERT INTO vragen (user_id, title, inhoud, media) VALUES (1, 'Welke haaknaald voor gebruik?', 'Ik heb een wol gekocht bij de Zeeman, hoe kan ik weten welke haaknaald ik moet gebruiken voor die wol?', 'wol.jpeg')")
                 cur.execute("INSERT INTO vragen (user_id, title, inhoud, media) VALUES (2, 'Waar is mijn volgende stitch?', 'Ik heb een stukje al genmaakt maar ik weet niet meer zeker welke plek in moet steken met haaknaald, kan iemand me helpen?', 'stitch.jpeg')")
 
+            cur.execute("""CREATE TABLE IF NOT EXISTS antwoorden(
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                user_id INTEGER NOT NULL,
+                vraag_id INTEGER NOT NULL,
+                tekst TEXT,
+                foto TEXT,
+                video TEXT,
+                audio TEXT,
+                FOREIGN KEY(user_id) REFERENCES users(id),
+                FOREIGN KEY(vraag_id) REFERENCES vragen(id))""")
+
             # -------------------------
             # Haaktermen tabel
             # -------------------------
@@ -459,6 +470,7 @@ Blush"""
                 ))
 
             con.commit()
+
 
     def add_column(self, table_name: str, column_name: str, column_type: str):
         """Voeg kolom toe aan bestaande tabel als deze nog niet bestaat"""

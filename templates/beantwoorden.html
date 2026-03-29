@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/beantwoorden.css">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <title>Community</title>
+</head>
+<body>
+<div class="iphone">
+
+    <!-- Tabs -->
+    <div class="tabs">
+        <a href="{{ url_for('projects') }}" class="tab">Project</a>
+        <a href="#" class="tab">Ontwerp</a>
+        <a href="{{ url_for('questions') }}" class="tab active">Community</a>
+    </div>
+
+    <!-- Subtabs -->
+    <div class="subtabs">
+        <a href="{{ url_for('questions') }}" class="subtab active">Beantwoorden</a>
+        <a href="#" class="subtab">Vragen</a>
+    </div>
+
+    <!-- Cards -->
+        <div class="card">
+            <div class="card-img">
+                {% if posts.foto %}
+                <img src="{{ url_for('static', filename='images/' + posts.foto)}}" alt="foto">
+                {% endif %}
+            </div>
+            <h2 class="card-titel">{{ posts.titel }}</h2>
+            <p class="card-tekst">{{ posts.tekst }}</p>
+        </div>
+
+
+    <!-- Antwoord formulier -->
+    <form action="{{ url_for('answer', post_id=posts.id) }}" method="POST" class="antwoord-form" enctype="multipart/form-data">
+        <textarea name="antwoord" class="antwoord-input" placeholder="Schrijf je antwoord..."></textarea>
+
+        <div class="ai-actions">
+            <div class="ai-icons">
+                <label class="icon-btn">
+                    <input type="file" name="foto" accept="image/*" hidden>
+                    <i class="fa-regular fa-image"></i>
+                </label>
+                <label class="icon-btn">
+                    <input type="file" name="video" accept="video/*" hidden>
+                    <i class="fa-solid fa-video"></i>
+                </label>
+                <label class="icon-btn">
+                    <input type="file" name="audio" accept="audio/*" hidden>
+                    <i class="fa-solid fa-microphone"></i>
+                </label>
+            </div>
+            <button type="submit" class="send-btn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#B3B3B3" stroke-width="2"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+            </button>
+        </div>
+    </form>
+
+</div>
+</body>
+</html>
