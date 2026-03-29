@@ -96,7 +96,7 @@ class Queries:
 
             return cur.fetchall()
 
-    def get_posts(self):
+    def get_posts(self, user_id):
         with self.db.connect() as con:
             con.row_factory = sqlite3.Row
             cur = con.cursor()
@@ -108,8 +108,9 @@ class Queries:
                 title AS titel,
                 inhoud AS tekst
             FROM vragen
+            WHERE user_id != ?
             ORDER BY created_at DESC
-            """)
+            """, (user_id,))
 
             return cur.fetchall()
 
@@ -184,3 +185,31 @@ class Queries:
                 ORDER BY created_at DESC
             """, (user_id, f"%{search_term}%"))
             return cur.fetchall()
+
+    def my_questions(self, user_id):
+        with self.db.connect() as con:
+            con.row_factory = sqlite3.Row
+            cur = con.cursor()
+
+            cur.execute("""
+            SELECT
+                id,
+                media AS foto,
+                title AS titel,
+                inhoud AS tekst
+            FROM vragen
+            WHERE user_id = ?
+            ORDER BY created_at DESC
+            """, (user_id,))
+
+            return cur.fetchall()
+
+    def answer_people(self, vraag_id):
+        with self.db.connect() as con:
+            con.row_factory = sqlite3.Row
+            cur = con.cursor()
+            cur.execute("""SELECT id, user_id, tekst, foto, video, audio
+            FROM antwoorden
+            WHERE vraag_id = ?
+        """, (vraag_id,))
+        return cur.fetchall()

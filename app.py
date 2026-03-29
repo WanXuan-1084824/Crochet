@@ -142,7 +142,8 @@ def stitch_min():
 
 @app.route('/questions', methods=['GET', 'POST'])
 def questions():
-    posts = queries.get_posts()
+    user_id = session.get('user_id')
+    posts = queries.get_posts(user_id)
     return render_template('vragen.html', posts=posts)
 
 @app.route('/answer/<int:post_id>', methods=['GET', 'POST'])
@@ -262,6 +263,18 @@ def supplies(project_id):
         'supplies.html',
         project=project
     )
+
+@app.route('/vragenoverzicht')
+def vragenoverzicht():
+    user_id = session.get('user_id')
+    posts = queries.my_questions(user_id)
+    return render_template('vragenoverzicht.html', posts=posts)
+
+@app.route('/geantwoord/<int:post_id>', methods=['GET', 'POST'])
+def geantwoord(post_id):
+    post = queries.get_post(post_id)
+    answers = queries.answer_people(post_id)  # haal antwoorden van andere gebruikers
+    return render_template('antwoorden.html', posts=post, answers=answers)
 
 if __name__ == '__main__':
     app.run(debug=True)

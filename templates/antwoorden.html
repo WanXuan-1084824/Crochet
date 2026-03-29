@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/antwoorden.css">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <title>Community</title>
+</head>
+<body>
+<div class="iphone">
+
+    <!-- Tabs -->
+    <div class="tabs">
+        <a href="{{ url_for('projects') }}" class="tab">Project</a>
+        <a href="{{ url_for('mijn_overzicht') }}" class="tab">Ontwerp</a>
+        <a href="{{ url_for('questions') }}" class="tab active">Community</a>
+    </div>
+
+    <!-- Subtabs -->
+    <div class="subtabs">
+        <a href="{{ url_for('questions') }}" class="subtab active">Beantwoorden</a>
+        <a href="{{ url_for('create') }}" class="subtab">Vragen</a>
+    </div>
+
+
+<!-- Card met vraag -->
+<div class="card">
+    <div class="card-img">
+        {% if posts.foto %}
+        <img src="{{ url_for('static', filename='images/' + posts.foto)}}" alt="foto">
+        {% endif %}
+    </div>
+    <h2 class="card-titel">{{ posts.titel }}</h2>
+    <p class="card-tekst">{{ posts.tekst }}</p>
+</div>
+
+<!-- Antwoorden van andere gebruikers -->
+<div class="answers-section">
+    <h3>Antwoorden</h3>
+    {% for answer in answers %}
+    <div class="answer-card">
+        {% if answer.foto %}
+        <div class="answer-img">
+            <img src="{{ url_for('static', filename='images/' + answer.foto)}}" alt="foto">
+        </div>
+        {% endif %}
+        <p class="answer-tekst">{{ answer.tekst }}</p>
+    </div>
+    {% endfor %}
+</div>
