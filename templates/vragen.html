@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/vragen.css') }}">
     <title>Community</title>
 </head>
@@ -12,7 +13,7 @@
     <!-- Tabs -->
     <div class="tabs">
         <a class="tab" href="{{ url_for('projects') }}" class="tab">Project</a>
-        <a class="tab" href="#" class="tab">Ontwerp</a>
+        <a class="tab" href="{{ url_for('mijn_overzicht') }}" class="tab">Ontwerp</a>
         <a class="tab active" href="{{ url_for('questions') }}" class="tab active">Community</a>
     </div>
 
